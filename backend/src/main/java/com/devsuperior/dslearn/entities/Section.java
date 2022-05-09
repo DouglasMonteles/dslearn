@@ -1,8 +1,6 @@
 package com.devsuperior.dslearn.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -12,14 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.devsuperior.dslearn.entities.enums.ResourceType;
-
 @Entity
-@Table(name = "tb_resource")
-public class Resource implements Serializable {
+@Table(name = "tb_section")
+public class Section implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -39,32 +34,26 @@ public class Resource implements Serializable {
 	@Column(length = 255, nullable = false)
 	private String imgUrl;
 	
-	@Column(nullable = false)
-	private ResourceType type;
-	
-	@Column(nullable = true)
-	private String externalLink;
+	@ManyToOne
+	@JoinColumn(name = "resource_id", nullable = false)
+	private Resource resource;
 	
 	@ManyToOne
-	@JoinColumn(name = "offer_id", nullable = false)
-	private Offer offer;
+	@JoinColumn(name = "prerequisite_id", nullable = true)
+	private Section prerequisite;
 	
-	@OneToMany(mappedBy = "resource")
-	private List<Section> sections = new ArrayList<>();
-	
-	public Resource() {}
+	public Section() {}
 
-	public Resource(Long id, String title, String description, Integer position, String imgUrl, ResourceType type,
-			String externalLink, Offer offer) {
+	public Section(Long id, String title, String description, Integer position, String imgUrl, Resource resource,
+			Section prerequisite) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.description = description;
 		this.position = position;
 		this.imgUrl = imgUrl;
-		this.type = type;
-		this.externalLink = externalLink;
-		this.setOffer(offer);
+		this.resource = resource;
+		this.prerequisite = prerequisite;
 	}
 
 	public Long getId() {
@@ -107,36 +96,20 @@ public class Resource implements Serializable {
 		this.imgUrl = imgUrl;
 	}
 
-	public ResourceType getType() {
-		return type;
+	public Resource getResource() {
+		return resource;
 	}
 
-	public void setType(ResourceType type) {
-		this.type = type;
+	public void setResource(Resource resource) {
+		this.resource = resource;
 	}
 
-	public String getExternalLink() {
-		return externalLink;
+	public Section getPrerequisite() {
+		return prerequisite;
 	}
 
-	public void setExternalLink(String externalLink) {
-		this.externalLink = externalLink;
-	}
-
-	public Offer getOffer() {
-		return offer;
-	}
-
-	public void setOffer(Offer offer) {
-		this.offer = offer;
-	}
-	
-	public List<Section> getSections() {
-		return sections;
-	}
-	
-	public void addSection(Section section) {
-		this.sections.add(section);
+	public void setPrerequisite(Section prerequisite) {
+		this.prerequisite = prerequisite;
 	}
 
 	@Override
@@ -152,7 +125,7 @@ public class Resource implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Resource other = (Resource) obj;
+		Section other = (Section) obj;
 		return Objects.equals(id, other.id);
 	}
 	
