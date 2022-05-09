@@ -29,5 +29,22 @@ INSERT INTO tb_section (title, description, position, img_url, resource_id, prer
 INSERT INTO tb_enrollment (enrollment_moment, refund_moment, available, only_update, user_id, offer_id) VALUES ('2020-11-20T13:00:00Z', null, true, false, 1, 1);
 INSERT INTO tb_enrollment (enrollment_moment, refund_moment, available, only_update, user_id, offer_id) VALUES ('2020-11-20T13:00:00Z', null, true, false, 2, 1);
 
+INSERT INTO tb_lesson (title, position, section_id) VALUES ('Aula 1 Capitulo 1', 1, 1);
+INSERT INTO tb_content (text_content, video_uri, id) VALUES ('Material de apoio: abc', 'https://www.youtube.com/watch?v=v6dfpWictcE&ab_channel=C%C3%B3digoFonteTV', 1);
+
+INSERT INTO tb_lesson (title, position, section_id) VALUES ('Aula 2 Capitulo 1', 2, 1);
+INSERT INTO tb_content (text_content, video_uri, id) VALUES ('Material de apoio: abc', 'https://www.youtube.com/watch?v=v6dfpWictcE&ab_channel=C%C3%B3digoFonteTV', 2);
+
+INSERT INTO tb_lesson (title, position, section_id) VALUES ('Aula 3 Capitulo 1', 3, 1);
+INSERT INTO tb_content (text_content, video_uri, id) VALUES ('Material de apoio: abc', 'https://www.youtube.com/watch?v=v6dfpWictcE&ab_channel=C%C3%B3digoFonteTV', 3);
+
+INSERT INTO tb_lesson (title, position, section_id) VALUES ('Tarefa do Capítulo 1', 4, 1);
+INSERT INTO tb_task (description, question_count, approval_count, weight, due_date, id) VALUES ('Fazer trabalho 1', 5, 4, 1.0, '2020-11-25T13:00:00Z', 4);
+
+INSERT INTO tb_lessons_done (lesson_id, user_id, offer_id) VALUES (1, 1, 1);
+INSERT INTO tb_lessons_done (lesson_id, user_id, offer_id) VALUES (2, 1, 1);
+
+
+
 
 
