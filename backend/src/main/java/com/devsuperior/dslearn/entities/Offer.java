@@ -29,10 +29,10 @@ public class Offer implements Serializable {
 	@Column(length = 20, nullable = false)
 	private String edition;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant startMoment;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant endMoment;
 	
 	@ManyToOne
