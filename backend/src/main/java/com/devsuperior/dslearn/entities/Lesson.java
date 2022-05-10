@@ -54,6 +54,9 @@ public abstract class Lesson implements Serializable {
 	private Set<Enrollment> enrollmentsDone = new HashSet<>();
 	
 	@OneToMany(mappedBy = "lesson")
+	private List<Topic> topics = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "lesson")
 	private List<Deliver> deliveries = new ArrayList<>();
 	
 	public Lesson() {}
@@ -112,6 +115,14 @@ public abstract class Lesson implements Serializable {
 
 	public void addDeliver(Deliver deliver) {
 		this.deliveries.add(deliver);
+	}
+	
+	public List<Topic> getTopics() {
+		return topics;
+	}
+
+	public void addTopic(Topic topic) {
+		this.topics.add(topic);
 	}
 
 	@Override
