@@ -143,6 +143,11 @@ public class User implements Serializable, UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
+	
+	public boolean hasRole(String roleName) {
+		return this.roles.stream()
+				.anyMatch(it -> it.getAuthority().equals(roleName));
+	}
 
 
 	@Override

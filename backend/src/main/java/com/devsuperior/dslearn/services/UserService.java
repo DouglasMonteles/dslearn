@@ -21,8 +21,13 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private AuthService authService;
+	
 	@Transactional(readOnly = true)
 	public UserDto findById(Long id) {
+		this.authService.validateSelfOrAdmin(id);
+		
 		var optionalUser = this.userRepository.findById(id);
 		var user = optionalUser.orElseThrow(
 			() -> new ResourceNotFoundException("User not found. Id: " + id)

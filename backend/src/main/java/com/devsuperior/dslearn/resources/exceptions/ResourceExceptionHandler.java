@@ -12,7 +12,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.devsuperior.dslearn.services.exceptions.ForbiddenException;
 import com.devsuperior.dslearn.services.exceptions.ResourceNotFoundException;
+import com.devsuperior.dslearn.services.exceptions.UnauthorizedException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
@@ -77,6 +79,32 @@ public class ResourceExceptionHandler {
 		error.setError("Method argument not valid");
 		error.setMessage(e.getMessage());
 		error.setPath(request.getRequestURI());
+		
+		return ResponseEntity.status(status).body(error);
+	}
+	
+	@ExceptionHandler(ForbiddenException.class)
+	public ResponseEntity<OAuthCustomError> forbiddenException(
+				ForbiddenException e, HttpServletRequest request
+			) {
+		var status = HttpStatus.FORBIDDEN;
+		var error = new OAuthCustomError();
+		
+		error.setError("Forbidden");
+		error.setErrorDescription(e.getMessage());
+		
+		return ResponseEntity.status(status).body(error);
+	}
+	
+	@ExceptionHandler(UnauthorizedException.class)
+	public ResponseEntity<OAuthCustomError> unauthorizedException(
+				UnauthorizedException e, HttpServletRequest request
+			) {
+		var status = HttpStatus.UNAUTHORIZED;
+		var error = new OAuthCustomError();
+		
+		error.setError("Unauthorized");
+		error.setErrorDescription(e.getMessage());
 		
 		return ResponseEntity.status(status).body(error);
 	}
