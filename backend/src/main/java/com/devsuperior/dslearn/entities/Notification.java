@@ -76,7 +76,7 @@ public class Notification implements Serializable {
 		this.moment = moment;
 	}
 
-	public Boolean getRead() {
+	public Boolean isRead() {
 		return read;
 	}
 
