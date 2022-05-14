@@ -36,7 +36,7 @@ public class JwtTokenEnhancer implements TokenEnhancer {
 		var tokenAdditionalInformation = new HashMap<String, Object>();
 		
 		tokenAdditionalInformation.put("userId", user.getId());
-		tokenAdditionalInformation.put("name", user.getName());
+		tokenAdditionalInformation.put("username", user.getName());
 		
 		var token = (DefaultOAuth2AccessToken) accessToken;
 		
